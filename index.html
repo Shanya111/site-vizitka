@@ -359,6 +359,91 @@ footer {
   color: var(--dim);
   letter-spacing: 0.1em;
 }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  nav {
+    padding: 20px 24px;
+  }
+  .nav-links {
+    gap: 20px;
+  }
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+
+  .hero {
+    padding: 0 24px 60px;
+  }
+  .hero-title {
+    font-size: clamp(44px, 12vw, 80px);
+    margin-bottom: 40px;
+  }
+  .hero-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+  }
+  .hero-sub {
+    max-width: 100%;
+  }
+  .hero-year {
+    display: none;
+  }
+
+  .section-header {
+    padding: 20px 24px;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  .service-item {
+    padding: 32px 24px 28px;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .service-item:nth-child(3n) { border-right: none; }
+  .service-item:nth-child(n+4) { border-bottom: 1px solid var(--line); }
+  .service-item:last-child { border-bottom: none; }
+
+  .process-item {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 28px 24px;
+  }
+  .process-title {
+    font-size: 22px;
+    min-width: unset;
+  }
+  .process-desc {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .about-content {
+    padding: 48px 24px !important;
+  }
+  .about-name {
+    font-size: clamp(32px, 8vw, 48px);
+  }
+  .about-text {
+    max-width: 100%;
+  }
+
+  footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 32px 24px;
+  }
+  .footer-contact {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
 </style>
 </head>
 <body>
@@ -473,8 +558,8 @@ footer {
   <div class="about-content" style="padding: 72px 48px;">
     <h2 class="about-name">AKIM<br>VIBECODER</h2>
     <div class="about-text">
-      <p>Работаю с ИИ-инструментами — делаю то, что реально работает. Без лишних слов и затянутых дедлайнов.</p>
-      <p>Vibe-coding, промпт-инжиниринг, AI-ассистенты. Сдаю в срок, объясняю что делаю.</p>
+      <p>Осваиваю вайбкодинг и ИИ-инструменты — и уже применяю это на практике. Берусь за реальные задачи: сайты, боты, автоматизации.</p>
+      <p>Честно предупреждаю: я в активной фазе роста. Дедлайны обсуждаемые, цены договорные. Если задача выходит за текущий уровень — скажу сразу, не потрачу ваше время. Портфолио пополняется с каждым проектом.</p>
     </div>
   </div>
 </section>

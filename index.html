@@ -1,45 +1,513 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Шаньяа — Vibe-Coding & AI</title>
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Шаньяа — Фрилансер · AI · web · automation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0a;
+  --bg2: #111111;
+  --line: #222220;
+  --text: #f0ede8;
+  --dim: #6a6860;
+  --accent: oklch(72% 0.12 82);
+  --font: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 48px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s, background 0.3s;
+}
+nav.scrolled {
+  border-color: var(--line);
+  background: rgba(14,14,12,0.92);
+  backdrop-filter: blur(12px);
+}
+.nav-logo {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.nav-links {
+  display: flex;
+  gap: 36px;
+}
+.nav-links a {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 48px 80px;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-bg img {
+  width: 100%;
+  height: 130%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  filter: grayscale(25%);
+  transform: translateY(0);
+  will-change: transform;
+}
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(14,14,12,0.55) 0%,
+    rgba(14,14,12,0.45) 40%,
+    rgba(14,14,12,0.82) 75%,
+    rgba(14,14,12,0.97) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-tag {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(240,237,232,0.55);
+  margin-bottom: 40px;
+}
+
+.hero-title {
+  font-size: clamp(64px, 9vw, 140px);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  margin-bottom: 56px;
+}
+
+.hero-title span {
+  display: block;
+}
+
+.hero-title .accent-word {
+  color: var(--accent);
+}
+
+.hero-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: rgba(240,237,232,0.6);
+  line-height: 1.7;
+  max-width: 340px;
+}
+
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  border: 1px solid var(--text);
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+  border-radius: 0;
+}
+.btn-cta:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+.btn-cta .arrow {
+  transition: transform 0.2s;
+}
+.btn-cta:hover .arrow {
+  transform: translateX(4px);
+}
+
+.hero-year {
+  position: absolute;
+  top: 50%;
+  right: 48px;
+  transform: translateY(-50%);
+  font-size: clamp(120px, 16vw, 240px);
+  font-weight: 700;
+  color: rgba(240,237,232,0.04);
+  letter-spacing: -0.05em;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+  z-index: 1;
+}
+
+/* ── SECTION HEADER ── */
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 28px 48px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+.section-tag {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.section-count {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+}
+
+/* ── SERVICES ── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--bg);
+}
+
+.service-item {
+  padding: 48px 48px 44px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s;
+}
+.service-item:nth-child(3n) { border-right: none; }
+.service-item:nth-child(n+4) { border-bottom: none; }
+.service-item:hover { background: var(--bg2); }
+
+.service-num {
+  font-size: 11px;
+  color: var(--dim);
+  letter-spacing: 0.15em;
+  margin-bottom: 24px;
+  display: block;
+}
+.service-name {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+/* ── PROCESS ── */
+.process-list {
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+.process-item {
+  display: flex;
+  align-items: baseline;
+  gap: 48px;
+  padding: 36px 48px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  transition: background 0.2s;
+}
+.process-item:last-child { border-bottom: none; }
+.process-item:hover { background: var(--bg2); }
+
+.process-num {
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  min-width: 28px;
+  flex-shrink: 0;
+}
+.process-title {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  min-width: 200px;
+  flex-shrink: 0;
+}
+.process-desc {
+  font-size: 14px;
+  color: var(--dim);
+  line-height: 1.65;
+  max-width: 480px;
+}
+
+/* ── ABOUT ── */
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.about-tag {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 48px;
+}
+
+.about-name {
+  font-size: clamp(36px, 4vw, 58px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  margin-bottom: 40px;
+}
+
+.about-text {
+  font-size: 15px;
+  color: var(--dim);
+  line-height: 1.75;
+  max-width: 380px;
+}
+
+.about-text p + p {
+  margin-top: 16px;
+}
+
+/* ── FOOTER ── */
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 48px;
+  background: var(--bg);
+}
+
+.footer-contact {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.footer-link {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.footer-link:hover { color: var(--text); }
+
+.footer-copy {
+  font-size: 11px;
+  color: var(--dim);
+  letter-spacing: 0.1em;
+}
+</style>
 </head>
 <body>
 
-  <header>
-    <h1>Привет, я Шаньяа</h1>
-    <p class="tagline">Изучаю Vibe-Coding, промпт-инжиниринг и создание AI-ассистентов</p>
-  </header>
+<!-- NAV -->
+<nav id="main-nav">
+  <span class="nav-logo">Шаньяа</span>
+  <div class="nav-links">
+    <a href="#services">Услуги</a>
+    <a href="#process">Процесс</a>
+    <a href="#about">Обо мне</a>
+    <a href="#contact">Контакт</a>
+  </div>
+</nav>
 
-  <section id="about">
-    <h2>Чем я занимаюсь</h2>
-    <p>
-      Я создаю сайты с помощью AI — быстро, без лишнего пафоса.
-      Это мой первый проект: буду улучшать его по мере роста навыков.
-    </p>
-  </section>
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <img src="images/hero-bg.jpg" alt="">
+  </div>
+  <div class="hero-year">2026</div>
+  <div class="hero-content">
+    <p class="hero-tag">— фрилансер · AI · web · automation</p>
+    <h1 class="hero-title">
+      <span>Создаю</span>
+      <span>сайты,</span>
+      <span>ботов,</span>
+      <span class="accent-word">автоматизации</span>
+    </h1>
+    <div class="hero-bottom">
+      <p class="hero-sub">
+        Под задачу клиента — сайты, боты, ИИ-ассистенты,<br>
+        автоматизации, промпты, генерация изображений.
+      </p>
+      <a href="#contact" class="btn-cta">
+        Написать мне
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
 
-  <section id="skills">
-    <h2>Что умею</h2>
-    <ul>
-      <li>Vibe-Coding — создание сайтов через AI</li>
-      <li>Промпт-инжиниринг — грамотные запросы к AI</li>
-      <li>AI-ассистенты — настройка и создание</li>
-    </ul>
-  </section>
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header">
+    <span class="section-tag">— Что делаю</span>
+    <span class="section-count">06 направлений</span>
+  </div>
+  <div class="services-grid">
+    <div class="service-item">
+      <span class="service-num">01</span>
+      <p class="service-name">Сайты</p>
+    </div>
+    <div class="service-item">
+      <span class="service-num">02</span>
+      <p class="service-name">Боты</p>
+    </div>
+    <div class="service-item">
+      <span class="service-num">03</span>
+      <p class="service-name">Автоматизации</p>
+    </div>
+    <div class="service-item">
+      <span class="service-num">04</span>
+      <p class="service-name">Промпты</p>
+    </div>
+    <div class="service-item">
+      <span class="service-num">05</span>
+      <p class="service-name">ИИ-ассистенты</p>
+    </div>
+    <div class="service-item">
+      <span class="service-num">06</span>
+      <p class="service-name">Генерация изображений под ключ</p>
+    </div>
+  </div>
+</section>
 
-  <section id="offer">
-    <h2>Могу помочь</h2>
-    <p>Хочешь сайт-визитку? Напиши — сделаем вместе.</p>
-    <a href="mailto:Shanyaakim1994@proton.me" class="btn">Написать мне</a>
-  </section>
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-header">
+    <span class="section-tag">— Как работаю</span>
+    <span class="section-count">04 шага</span>
+  </div>
+  <div class="process-list">
+    <div class="process-item">
+      <span class="process-num">01</span>
+      <span class="process-title">Заявка</span>
+      <p class="process-desc">Вы описываете задачу — в любом формате: голосом, текстом, ссылкой. Без ТЗ — тоже разберёмся.</p>
+    </div>
+    <div class="process-item">
+      <span class="process-num">02</span>
+      <span class="process-title">Разбор</span>
+      <p class="process-desc">Уточняю детали, предлагаю решение и называю стоимость. Без скрытых доплат.</p>
+    </div>
+    <div class="process-item">
+      <span class="process-num">03</span>
+      <span class="process-title">Делаю</span>
+      <p class="process-desc">Работаю итерациями, показываю прогресс. Вы видите результат на каждом этапе.</p>
+    </div>
+    <div class="process-item">
+      <span class="process-num">04</span>
+      <span class="process-title">Сдача</span>
+      <p class="process-desc">Принимаете готовое. Даю поддержку после сдачи — не исчезаю после оплаты.</p>
+    </div>
+  </div>
+</section>
 
-  <footer>
-    <p>© 2026 Шаньяа · Сайт растёт вместе со мной</p>
-  </footer>
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-tag">— Обо мне</span>
+  </div>
+  <div class="about-content" style="padding: 72px 48px;">
+    <h2 class="about-name">Аким<br>Шаньяа</h2>
+    <div class="about-text">
+      <p>Работаю с ИИ-инструментами — делаю то, что реально работает. Без лишних слов и затянутых дедлайнов.</p>
+      <p>Vibe-coding, промпт-инжиниринг, AI-ассистенты. Сдаю в срок, объясняю что делаю.</p>
+    </div>
+  </div>
+</section>
 
-  <script src="js/main.js"></script>
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-contact">
+    <a href="https://t.me/username" class="footer-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13"></path><path d="M22 2L15 22 11 13 2 9l20-7z"></path></svg>
+      Telegram
+    </a>
+    <a href="mailto:Shanyaakim1994@proton.me" class="footer-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="0"></rect><path d="M2 4l10 9 10-9"></path></svg>
+      Shanyaakim1994@proton.me
+    </a>
+  </div>
+  <span class="footer-copy">© 2026 Шаньяа</span>
+</footer>
+
+<script>
+const nav = document.getElementById('main-nav');
+const heroBgImg = document.querySelector('.hero-bg img');
+
+function onScroll() {
+  const sy = window.scrollY;
+  nav.classList.toggle('scrolled', sy > 40);
+  if (heroBgImg) {
+    heroBgImg.style.transform = 'translateY(' + (sy * 0.4) + 'px)';
+  }
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
+</script>
+
 </body>
 </html>
